@@ -1,3 +1,4 @@
+version: '3.8'  # Ensure using a compatible version for GPU support
 services:
   serge:
     restart: on-failure
@@ -13,6 +14,13 @@ services:
     ports:
       - "8008:8008"
       - "9124:9124"
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [gpu]
 
 volumes:
   datadb:
